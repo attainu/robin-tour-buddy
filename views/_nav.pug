@@ -1,0 +1,21 @@
+nav.navbar.navbar-expand-lg.navcustom.fixed-top
+    a.overviewNav(href="/") All Tours
+    div.navDiv.justify-content-center
+        img.brandNav(src="/img/logo2.png", alt="logo")
+    - if (url != '/signup' && url != '/login')
+        button.navbar-toggler(type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation")
+            span.navbar-toggler-icon
+        #navbarNav.collapse.navbar-collapse
+            ul.navbar-nav.customNav   
+                if user
+                    li.nav-item
+                        img.userImg(src=`/img/users/${user.photo}`, alt="")
+                    li.nav-item.actionBtn
+                        a.nav-link.actionText(href="/me")= user.firstName.toUpperCase()
+                    li.nav-item.actionBtn
+                        a.nav-link.actionText(href="/" id="logoutBtn") LOGOUT
+                else
+                    li.nav-item.actionBtn
+                        a.nav-link.actionText(href="/signup") SIGN UP
+                    li.nav-item.actionBtn
+                        a.nav-link.actionText(href="/login") LOG IN

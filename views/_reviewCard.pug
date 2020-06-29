@@ -1,0 +1,14 @@
+mixin reviewCard(review)
+    .card-review
+        .container
+            .row
+                .col-md-3(style="margin-top: 30px;")
+                    img.userImg(src=`/img/users/${review.user.photo}` alt="")
+                .col-md-6(style="margin-top: 40px; text-align: center;")
+                    span(style='color: white; font-size:large;')= review.user.firstName
+            .row(style="margin-top:20px")
+                .col(style="color: white;")= review.review
+            .row
+                .col(style="margin-top:20px")
+                    each star in [1,2,3,4,5]
+                        span.fa.fa-star.star-icon(class=`${review.rating >= star ? 'checked' : 'inactive'}`)

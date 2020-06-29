@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+const Booking = require('./bookingModel');
 
 const tourSchema = new mongoose.Schema({
     name: {
@@ -97,6 +98,12 @@ const tourSchema = new mongoose.Schema({
         description: String,
         day: Number
     }
+    ],
+    guides: [
+        {
+          type: mongoose.Schema.ObjectId,
+          ref: 'User'
+        }
     ]
 },
 {
@@ -112,16 +119,17 @@ tourSchema.virtual('durationWeeks').get(function() {
     return this.duration / 7;
 });
 
-tourSchema.pre('save', function(next) {
-    this.slug = slugify(this.name, { lower: true });
-    next();
-});
-
 tourSchema.virtual('reviews', {
     ref: 'Review',
     foreignField: 'tour',
     localField: '_id'
 });
+
+tourSchema.pre('save', function(next) {
+    this.slug = slugify(this.name, { lower: true });
+    next();
+});
+
 
 // DOCUMENT MIDDLEWARE
 tourSchema.pre('save', function(next) {
@@ -135,6 +143,14 @@ tourSchema.pre(/^find/, function(next) {
     this.start = Date.now();
     next();
 });
+
+tourSchema.pre('save', function(next) {
+    if(!this.isModified('slug')) {
+        return next()
+    }
+    this.slug = slugify(this.name, { lower: true });
+    next()
+})
 
 tourSchema.pre(/^find/, function(next) {
     this.populate({

@@ -69,6 +69,17 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
     }
 };
 
+reviewSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'tour',
+    select: 'name'
+  }).populate({
+    path: 'user',
+    select: 'firstName photo'
+  });
+  next()
+})
+
 reviewSchema.post('save', function() {  
     this.constructor.calcAverageRatings(this.tour);
 });

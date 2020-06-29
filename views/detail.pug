@@ -1,0 +1,98 @@
+extends base
+include _reviewCard
+
+block content
+    .container-fluid
+        .row_alertlogout(style="display:none; margin-top:100px; margin-bottom:50px; height:50px; opacity:0.6; text-align:-webkit-center")
+        .row.coverRow(style=`background-image:url(/img/${tour.imageCover});`)
+            .col.myCol
+                h2.nameDetail= tour.name
+        .container-fluid.cont
+            .row.factsRow
+                .col-md-6.colMod
+                    h3.quickFacts Quick Facts
+                    .row(style="margin-top:70px; margin-left:100px")
+                        .col-1
+                            img.actionImages(src="/img/calendar.png", alt="")
+                        .col-5.factcol
+                            p.newDate= `Next Date : ${tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})}`
+                        .col-1
+                            img.actionImages(src="/img/team.png", alt="")
+                        .col-5.factcol
+                            p.newDate= `Participants : ${tour.maxGroupSize}`
+                        .col-1
+                            img.actionImages(src="/img/mission.png", alt="")
+                        .col-5.factcol
+                            p.newLocation= `Difficulty : ${tour.difficulty}`
+                        .col-1
+                            img.actionImages(src="/img/star.png", alt="")
+                        .col-5.factcol
+                            p.newDate= `Rating : ${tour.ratingsAverage}`
+                    h3.guides Your Guides
+                    .col-md-2
+                    .col-md-8
+                .col-md-6.colMod
+                    h3.about= `About ${tour.name}`
+                    -const description = tour.description.split('\n')
+                    each p in description
+                        p.desc= p
+        .row.imagesRow
+            .col-md-4(style="padding:0px")
+                img.image1(src="/img/sample-tour2.jpg", alt="")
+            .col-md-4(style="padding:0px")
+                img.image1(src="/img/tour-sample.jpg", alt="")
+            .col-md-4(style="padding:0px")
+                img.image1(src="/img/sample-tour2.jpg", alt="")
+        .row.reviewRow
+            .skew
+                each review in tour.reviews
+                    +reviewCard(review)
+        .row.bookNow
+            .bookDiv
+                .col-md-2
+                    .row.rowD
+                        .col-md-4
+                            img.bookImg.img0(src=`/img/images.jpeg`, alt="")
+                        .col-md-4
+                            img.bookImg.img2(src=`/img/${tour.images[1]}`, alt="")
+                        .col-md-4
+                            img.bookImg.img1(src=`/img/${tour.images[0]}`, alt="")
+                .col-md-6(style="text-align:left")
+                    h3.booking WHAT ARE YOU WAITING FOR?
+                    p= `${tour.duration} days. 1 adventure. Infinite memories. Make it yours today!`
+                .col-md-4
+                    - if(bookings != null)
+                        - if (String(bookings.tour._id) != String(tour._id) || tour.startDates[2] < Date.now())
+                            button.bookBtn.finalBook(data-tour-id=`${tour.id}`) Book tour now!
+                        - if (String(bookings.tour._id) === String(tour._id) && tour.startDates[2] > Date.now())
+                            a.tourPage(href='/my-tours') My Tours
+                        - else if (!user)
+                            a.bookBtn(href="/login") Login to Book Tour!
+                    - else 
+                        -if (!user)
+                            a.bookBtn(href="/login") Login to Book Tour!
+                        - else
+                            button.bookBtn.finalBook(data-tour-id=`${tour.id}`) Book tour now!
+        .row.ratingRow
+            .col.ratingDiv
+                - if(bookings != null)
+                    - if (String(bookings.tour._id) === String(tour._id) && tour.startDates[0] < Date.now())
+                        if reviews
+                            | 
+                        else
+                            h4 Please provide a feedback! 
+                            .row.formRow
+                                .col-md-4.colRating
+                                    label(for="rating") Rating
+                                    | 
+                                    input#rating(type="text", name="rating", style="width:50px")
+                                    | &nbsp;stars
+                                .col-md-4.colRating
+                                    label(for="review") Review
+                                    | 
+                                    input#review(type="text", name="review") 
+                                .col-md-4.colRating
+                                    button.ratingSubmit.btn-success Submit
+                            .row(style="display:none")
+                                p.userReview= user._id
+                                p.tourReview= tour._id

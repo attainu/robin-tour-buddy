@@ -1,0 +1,33 @@
+extends base
+
+block content
+    .container.signup_cont
+        .row_alert(style="display:none; margin-top:100px; height:50px; opacity:0.6; text-align:-webkit-center")
+        .row.signup_row
+            .col.signup_col
+                .row
+                    .col-md-6
+                        img.signup_img(src="/img/team.png")
+                    .col-md-6.detailsCol
+                        h1.signup_logo LOG IN!
+                        br
+                        br
+                        br
+                        .input-group
+                            .input-group-prepend
+                                span.input-group-text.cust Email
+                            input.form-control(type="email" aria-label="Email" id="loginEmail" name="loginEmail")
+                        br
+                        .input-group
+                            .input-group-prepend
+                                span.input-group-text.cust Password
+                            input.form-control(type="password" aria-label="password" id="loginPassword" name="loginpassword")
+                        br
+                        button.submit_login.btn-block.btn-success Log In
+                        br
+                        a.forgotPassLink(href="/forgot-password") Forgot Password?
+                .row
+                    .col.exsistingUser
+                        h5 New User?
+                            a.boldLog(href="/signup") 
+                                b Sign Up

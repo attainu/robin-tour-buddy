@@ -1,0 +1,43 @@
+extends base
+
+block content
+    .container.signup_cont
+        .row_alertSignup(style="display:none; margin-top:100px; margin-bottom:50px; height:50px; opacity:0.6; text-align:-webkit-center")
+        .row.signup_row
+            .col.signup_col
+                .row
+                    .col-md-6
+                        img.signup_img(src="/img/team.png")
+                    .col-md-6.detailsCol
+                        h1.signup_logo REGISTER!
+                        .input-group
+                            .input-group-prepend
+                                span.input-group-text.cust First Name
+                            input.form-control(type="text" aria-label="First name", id="firstName") 
+                        br
+                        .input-group
+                            .input-group-prepend
+                                span.input-group-text.cust Last Name
+                            input.form-control(type="text" aria-label="Last name", id="lastName")
+                        br
+                        .input-group
+                            .input-group-prepend
+                                span.input-group-text.cust Email
+                            input.form-control(type="email" aria-label="Email", id="signupEmail")
+                        br
+                        .input-group
+                            .input-group-prepend
+                                span.input-group-text.cust Password
+                            input.form-control(type="password" aria-label="password", id="signupPass")
+                        br
+                        .input-group
+                            .input-group-prepend
+                                span.input-group-text.cust Confirm Password
+                            input.form-control(type="password" aria-label="passwordConfirm", id="signuConfirmpass")
+                        br
+                        button.submit_signup.btn-block.btn-success Sign Up
+                .row
+                    .col.exsistingUser
+                        h5 Already Have an account?
+                            a.boldLog(href="/login") 
+                                b Log In

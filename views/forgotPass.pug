@@ -1,0 +1,14 @@
+extends base
+
+block content
+    .container.emailForgotPass
+        .row_alertPass(style="display:none; margin-top:100px; margin-bottom:50px; height:50px; opacity:0.6; text-align:-webkit-center")
+        .row(style="text-align:center")
+            h2 Forgot Your Password? Submit your email to generate a new password link
+            br
+            br
+            br
+            .col.renderLink
+                label(for="forgotPassUser")
+                input#forgotPassUser(type="text", name="forgotPassUser")
+                button.btn-info.submitEmail Get Link

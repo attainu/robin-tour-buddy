@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto')
+const Booking = require('./bookingModel');
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -19,8 +21,15 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         minlength: [8, 'password must be atleast 8 characters'],
-        maxlength: [15, 'password must be less than 15 characters'],
         required: [true, 'there must be a passwod']
+    },photo: {
+        type: String,
+        default: 'icon.png'
+    },
+    role: {
+        type: String,
+        enum: ['user', 'guide', 'lead-guide', 'admin'],
+        default: 'user'
     },
     confirmPassword: {
         type: String,
@@ -31,14 +40,39 @@ const userSchema = new mongoose.Schema({
             message: 'Please enter same password'
         }
     },
+    passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires:Date,
     active: {
         type: Boolean,
         default: true,
         select: false
+    },
+    bookedTours: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Booking'
     }
+},
+{
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 })
+
+// userSchema.virtual('newName').get(function() {
+//     return this.firstName + 'S' 
+// })
+
+// userSchema.virtual('bookedTours', {
+//     ref: 'Booking',
+//     foreignField: 'user',
+//     localField: '_id'
+// });
+
+// userSchema.pre(/^find/, async function(next) {
+//     let n = await Booking.find()
+//     console.log(n)
+//     next()
+// })
 
 userSchema.pre('save', async function (next) {
     if(!this.isModified('password')) {
@@ -73,6 +107,20 @@ userSchema.methods.ifpasswordChangedAt = function (JWTTimestamp) {
     }
     return false;
 }
+
+userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
+    if (this.passwordChangedAt) {
+        const changedTimestamp = parseInt(
+            this.passwordChangedAt.getTime() / 1000,
+            10
+        );
+    
+        return JWTTimestamp < changedTimestamp;
+    }
+  
+    // False means NOT changed
+    return false;
+};
 
 userSchema.methods.createPasswordResetToken = function() {
     const resetToken = crypto.randomBytes(32).toString('hex');

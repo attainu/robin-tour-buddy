@@ -5,7 +5,7 @@ const factory = require('./factoryHandler');
 
 exports.getAllTour = factory.getAll(Tour)
 exports.createTour = factory.createOne(Tour)
-exports.updateTour = factory.updateOne(Tour)
+exports.updateTour = factory.updateOne(Tour, 'save')
 exports.deleteTour = factory.deleteOne(Tour)
 
 exports.getToursWithin = catchAsync(async (req, res, next) => {
