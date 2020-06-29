@@ -9,33 +9,37 @@ const linkToken = document.querySelector('.linkToken');
 
 if (submitLink) {
     submitLink.addEventListener('click', async e => {
-        e.preventDefault()
-        const body = {
-            email: emailuser.value
-        }
-        const passwordResetEmail = await fetch(`http://localhost:3000/api/user/forgot-password`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
-        })
-        const finalData = await passwordResetEmail.json()
-        console.log(finalData)
-        if(finalData.status === 'success') {
-            col.innerHTML = `
-            <h5>Check Your Email! Password Token is sent valid for only 10 mins</h5>
-            `
-        } else if (finalData.status === 'fail') {
-            rowAlertPass.style.display = 'block'
-            rowAlertPass.innerHTML = `
-            <div class="col" style="color:red">
-                ${finalData.message}
-            </div>
-            `
-            window.setTimeout(() => {
-                rowAlertPass.style.display = 'none'
-            }, 2000)
+        try {
+            e.preventDefault()
+            const body = {
+                email: emailuser.value
+            }
+            const passwordResetEmail = await fetch(`/api/user/forgot-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+            const finalData = await passwordResetEmail.json()
+            console.log(finalData)
+            if(finalData.status === 'success') {
+                col.innerHTML = `
+                <h5>Check Your Email! Password Token is sent valid for only 10 mins</h5>
+                `
+            } else if (finalData.status === 'fail') {
+                rowAlertPass.style.display = 'block'
+                rowAlertPass.innerHTML = `
+                <div class="col" style="color:red">
+                    ${finalData.message}
+                </div>
+                `
+                window.setTimeout(() => {
+                    rowAlertPass.style.display = 'none'
+                }, 2000)
+            }
+        } catch (err) {
+            console.log(err)
         }
     })
 }
@@ -47,7 +51,7 @@ if (passwordSet) {
             password: newPass.value,
             confirmPassword: newPassConfirm.value
         }
-        const resetPass = await fetch(`http://localhost:3000/api/user/reset-password/${linkToken.textContent}`, {
+        const resetPass = await fetch(`/api/user/reset-password/${linkToken.textContent}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

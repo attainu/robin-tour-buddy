@@ -7,6 +7,7 @@ const AppError = require('../utils/appError');
 
 exports.overview = async (req, res) => {
     const tours = await Tour.find()
+    console.log(req.cookies)
     res.render('overview', {
         tours,
         title: 'All Tours'

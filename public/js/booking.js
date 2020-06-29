@@ -5,7 +5,7 @@ if (bookBtn) {
         try {
             e.preventDefault()
             const { tourId } = e.target.dataset;
-            const session = await fetch(`http://localhost:3000/api/booking/checkout-session/${tourId}`)
+            const session = await fetch(`/api/booking/checkout-session/${tourId}`)
             const finalSession = await session.json()
             console.log(finalSession)
             await stripe.redirectToCheckout({
@@ -22,7 +22,7 @@ const myTour = document.querySelector('.tourPage');
 if (myTour) {
     myTour.addEventListener('click', async function(e) {
         e.preventDefault()
-        const session = await fetch(`http://localhost:3000/api/booking/my-tours`)
+        const session = await fetch(`/api/booking/my-tours`)
         const finalSession = await session.json()
         console.log(finalSession)
     })

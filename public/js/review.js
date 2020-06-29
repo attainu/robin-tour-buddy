@@ -17,7 +17,7 @@ if (postReviewBtn) {
                 user: userReview.textContent,
                 tour: tourReview.textContent
             }
-            const ratingData = await fetch(`http://localhost:3000/api/review/post-review/${tourReview.textContent}`, {
+            const ratingData = await fetch(`/api/review/post-review/${tourReview.textContent}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

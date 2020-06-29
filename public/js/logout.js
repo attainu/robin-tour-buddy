@@ -2,7 +2,7 @@ const logoutBtn = document.querySelector('#logoutBtn');
 const alertLogout = document.querySelector('.row_alertlogout');
 
 const logout = async () => {
-    const data = await fetch('http://localhost:3000/api/user/logout')
+    const data = await fetch('/api/user/logout')
     const res = await data.json()
     console.log(res)
     if(res.status === 'success') {

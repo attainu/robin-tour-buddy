@@ -9,7 +9,7 @@ const login = async (email, password) => {
         email,
         password
     }
-    const data = await fetch('http://localhost:3000/api/user/login', {
+    const data = await fetch('/api/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

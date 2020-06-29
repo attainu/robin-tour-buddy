@@ -15,7 +15,7 @@ if (submitBtn) {
             password: signupPassword.value,
             confirmPassword: confirmPassword.value
         }
-        const data = await fetch('http://localhost:3000/api/user/signup', {
+        const data = await fetch('/api/user/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
