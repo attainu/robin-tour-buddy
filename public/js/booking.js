@@ -22,8 +22,6 @@ const myTour = document.querySelector('.tourPage');
 if (myTour) {
     myTour.addEventListener('click', async function(e) {
         e.preventDefault()
-        const session = await fetch(`/api/booking/my-tours`)
-        const finalSession = await session.json()
-        console.log(finalSession)
+        location.assign('/my-tours')
     })
 }
