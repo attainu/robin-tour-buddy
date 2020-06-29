@@ -8,7 +8,7 @@ const updateSavePass = document.querySelector('.btnSavePass')
 const pass = document.getElementById('password')
 const confirmPass = document.getElementById('password-confirm')
 const currentPass = document.getElementById('password-current')
-const rowAlert = document.querySelector('.row_alertaccount')
+const rowAlert = document.querySelector('.row_alertlogout')
 
 const updateData = async(data, type) => {
     const updatedData = await fetch('/api/user/update-me', {
