@@ -8,7 +8,7 @@ const cors = require('cors');
 const hpp = require('hpp');
 const multer = require('multer');
 const cookieParser = require('cookie-parser');
-
+const compression = require('compression');
 const express = require('express');
 const tourRoutes = require('./routes/tourRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -60,6 +60,8 @@ app.use(
         ]
     })
 );
+
+app.use(compression())
 
 app.use((req, res, next) => {
     req.requestTime = new Date().toISOString();
