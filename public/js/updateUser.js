@@ -10,7 +10,7 @@ const confirmPass = document.getElementById('password-confirm')
 const currentPass = document.getElementById('password-current')
 
 const updateData = async(data, type) => {
-    const updatedData = await fetch('http://localhost:3000/api/user/updateMe', {
+    const updatedData = await fetch('/api/user/updateMe', {
         method: 'PATCH',
         body: data
     })
@@ -34,8 +34,8 @@ if (updateSavePhoto) {
 const updateDetails = async(data, type) => {
     const url =
       type === 'password'
-        ? 'http://localhost:3000/api/user/updateMyPassword'
-        : 'http://localhost:3000/api/user/updateMe';
+        ? '/api/user/updateMyPassword'
+        : '/api/user/updateMe';
     const updatedDetail = await fetch(`${url}`, {
         method: 'PATCH',
         headers: {
