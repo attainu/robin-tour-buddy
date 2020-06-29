@@ -9,7 +9,7 @@ exports.overview = async (req, res) => {
     const tours = await Tour.find()
     res.render('overview', {
         tours,
-        title: 'sample'
+        title: 'All Tours'
     })
 }
 
