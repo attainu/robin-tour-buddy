@@ -8,9 +8,10 @@ const updateSavePass = document.querySelector('.btnSavePass')
 const pass = document.getElementById('password')
 const confirmPass = document.getElementById('password-confirm')
 const currentPass = document.getElementById('password-current')
+const rowAlert = document.querySelector('.row_alertaccount')
 
 const updateData = async(data, type) => {
-    const updatedData = await fetch('/api/user/updateMe', {
+    const updatedData = await fetch('/api/user/update-me', {
         method: 'PATCH',
         body: data
     })
@@ -20,6 +21,16 @@ const updateData = async(data, type) => {
         window.setTimeout(() => {
             location.reload(true)
         }, 1500)
+    } else if (final.status === 'error') {
+        rowAlert.style.display = 'block'
+        rowAlert.innerHTML = `
+        <div class="col" style="color:red">
+            <h4>${final.message}</h4>
+        </div>
+        `
+        window.setTimeout(() => {
+            rowAlert.style.display = 'none'
+        }, 4000)
     }
 }
 
@@ -34,7 +45,7 @@ const updateDetails = async(data, type) => {
     const url =
       type === 'password'
         ? '/api/user/updateMyPassword'
-        : '/api/user/updateMe';
+        : '/api/user/update-me';
     const updatedDetail = await fetch(`${url}`, {
         method: 'PATCH',
         headers: {
