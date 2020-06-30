@@ -13,12 +13,13 @@ module.exports = class Email {
 
     newTransport() {
         // Sendgrid
-        return nodemailer.createTransport(mg({
-        auth: {
-            api_key: '1dc142f79c74f4a645b38234c681eacc-468bde97-c3adcd49',
-            domain: 'sandboxccca903664814b01b91e06bdcee31338.mailgun.org'
-        }
-        }));
+        return nodemailer.createTransport({
+            service: 'SendGrid',
+            auth: {
+                user: process.env.SENDGRID_USERNAME,
+                pass: process.env.SENDGRID_PASSWORD
+            }
+        });
     }
 
     // Send the actual email
@@ -41,8 +42,9 @@ module.exports = class Email {
 
         // 3) Create a transport and send email
         await this.newTransport().sendMail(mailOptions, (err, res) => {
-            if(err) console.log(err)
-            console.log(res)
+            if(err) {
+                console.log(err)
+            }
         });
     }
 

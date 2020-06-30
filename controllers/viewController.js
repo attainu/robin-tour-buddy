@@ -4,10 +4,12 @@ const Booking = require('../models/bookingModel');
 const Review = require('../models/reviewModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
+const ApiFeatures = require('../utils/apiFunction');
 
 exports.overview = async (req, res) => {
-    const tours = await Tour.find()
-    console.log(req.cookies)
+    const filter = new ApiFeatures(Tour.find(), req.query).filter()
+    const tours = await filter.query
+    console.log(tours)
     res.render('overview', {
         tours,
         title: 'All Tours'

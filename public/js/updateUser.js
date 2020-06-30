@@ -33,13 +33,14 @@ const updateData = async(data, type) => {
         }, 4000)
     }
 }
-
-updateSavePhoto.addEventListener('click', function(e) {
-    e.preventDefault()
-    let formData = new FormData();
-    formData.append('photo', updatePhoto.files[0]);
-    updateData(formData, 'data')
-})
+if (updateSavePhoto) {
+    updateSavePhoto.addEventListener('click', function(e) {
+        e.preventDefault()
+        let formData = new FormData();
+        formData.append('photo', updatePhoto.files[0]);
+        updateData(formData, 'data')
+    })
+}
 
 const updateDetails = async(data, type) => {
     const url =
@@ -61,17 +62,17 @@ const updateDetails = async(data, type) => {
         }, 1500)
     }
 }
-
-updateSaveData.addEventListener('click', async function(e) {
-    e.preventDefault()
-    const body = {
-        email: updateEmail.value,
-        firstName: updatefirstName.value,
-        lastName: updatelastName.value
-    }
-    updateDetails(body, 'data')
-})
-
+if (updateSaveData) {
+    updateSaveData.addEventListener('click', async function(e) {
+        e.preventDefault()
+        const body = {
+            email: updateEmail.value,
+            firstName: updatefirstName.value,
+            lastName: updatelastName.value
+        }
+        updateDetails(body, 'data')
+    })
+}
 
 
 if (updateSavePass) {

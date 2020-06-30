@@ -1,11 +1,12 @@
 // third party modules
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+const path = require('path');
+
+dotenv.config({ path: path.join(__dirname,'./.env')});
 
 // local modules
 const app = require('./app');
-
-dotenv.config({ path: './config.env' });
 
 const DB = process.env.DATABASE.replace('<password>', process.env.PASSWORD)
 
