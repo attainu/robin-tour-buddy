@@ -28,7 +28,7 @@ block content
                             img.actionImages(src="/img/star.png", alt="")
                         .col-5.factcol
                             p.newDate= `Rating : ${tour.ratingsAverage}`
-                    h3.guides Your Guides
+                    
                     .col-md-2
                     .col-md-8
                 .col-md-6.colMod
@@ -38,11 +38,11 @@ block content
                         p.desc= p
         .row.imagesRow
             .col-md-4(style="padding:0px")
-                img.image1(src="/img/sample-tour2.jpg", alt="")
+                img.image1(src=`/img/${tour.images[0]}`, alt="")
             .col-md-4(style="padding:0px")
-                img.image1(src="/img/tour-sample.jpg", alt="")
+                img.image1(src=`/img/${tour.images[1]}`, alt="")
             .col-md-4(style="padding:0px")
-                img.image1(src="/img/sample-tour2.jpg", alt="")
+                img.image1(src=`/img/${tour.images[2]}`, alt="")
         .row.reviewRow
             .skew
                 each review in tour.reviews
@@ -92,7 +92,4 @@ block content
                                     | 
                                     input#review(type="text", name="review") 
                                 .col-md-4.colRating
-                                    button.ratingSubmit.btn-success Submit
-                            .row(style="display:none")
-                                p.userReview= user._id
-                                p.tourReview= tour._id
+                                    button.ratingSubmit.btn-success.dataSet(data-tour-id=`${tour.id}`) Submit

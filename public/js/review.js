@@ -2,8 +2,7 @@
 const postReviewBtn = document.querySelector('.ratingSubmit')
 const rating = document.querySelector('#rating')
 const review = document.querySelector('#review')
-const userReview = document.querySelector('.userReview')
-const tourReview = document.querySelector('.tourReview')
+const dataSet = document.querySelector('.dataSet')
 const ratingDiv = document.querySelector('.ratingDiv')
 
 if (postReviewBtn) {
@@ -13,11 +12,9 @@ if (postReviewBtn) {
             e.preventDefault()
             const body = {
                 rating: rating.value,
-                review: review.value,
-                user: userReview.textContent,
-                tour: tourReview.textContent
+                review: review.value
             }
-            const ratingData = await fetch(`/api/review/post-review/${tourReview.textContent}`, {
+            const ratingData = await fetch(`/api/review/post-review/${dataSet.dataset.tourId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

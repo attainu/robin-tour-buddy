@@ -39,6 +39,19 @@ exports.details = async (req, res) => {
     })
 }
 
+exports.getMyTours = catchAsync(async (req, res, next) => {
+    // 1) Find all bookings
+    const bookings = await Booking.find({ user: req.user.id });
+  
+    // 2) Find tours with the returned IDs
+    const tourIDs = bookings.map(el => el.tour);
+    const tours = await Tour.find({ _id: { $in: tourIDs } });
+    res.status(200).render('booked', {
+        title: `${req.user.firstName}'s Tours`,
+        tours
+    });
+});
+
 exports.signup = async (req, res) => {
     const url = req.url
     res.render('signup', {
@@ -61,19 +74,6 @@ exports.getAccount = async (req, res) => {
         title: `${user.firstName}'s Account`,
     })
 }
-
-exports.getMyTours = catchAsync(async (req, res, next) => {
-    // 1) Find all bookings
-    const bookings = await Booking.find({ user: req.user.id });
-  
-    // 2) Find tours with the returned IDs
-    const tourIDs = bookings.map(el => el.tour);
-    const tours = await Tour.find({ _id: { $in: tourIDs } });
-    res.status(200).render('booked', {
-        title: `${req.user.firstName}'s Tours`,
-        tours
-    });
-});
 
 exports.getMyReviews = catchAsync(async (req, res, next) => {
     const reviews = await Review.find({ user: req.user.id })

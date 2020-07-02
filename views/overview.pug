@@ -7,7 +7,7 @@ block content
             each tour in tours
                 .col-md-4.customCol
                     .cardStart
-                        .name(style=`background-image:url(/img/tour-sample.jpg)`)
+                        .name(style=`background-image:url(/img/${tour.imageCover})`)
                             .contents
                         h5.nameTour= tour.name
                         .card-body

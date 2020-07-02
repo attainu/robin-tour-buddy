@@ -18,8 +18,8 @@ exports.deleteReview = factory.deleteOne(Review);
 
 exports.postReview = catchAsync(async(req, res, next) => {
     const user = await User.findOne({ _id: req.user._id }).populate({
-      path: 'bookedTours',
-      fields: 'tour user'
+        path: 'bookedTours',
+        fields: 'tour user'
     })
     const tour = await Tour.findOne({ _id: req.params.tourId }).populate({
         path: 'reviews',
@@ -28,10 +28,15 @@ exports.postReview = catchAsync(async(req, res, next) => {
     console.log(user.bookedTours.tour._id, tour._id)
     if (String(user.bookedTours.tour._id) === String(tour._id)) {
         console.log(user.bookedTours.tour._id, tour._id)
-        const newReview = await Review.create(req.body)
+        const newReview = await Review.create({
+            user: req.user._id,
+            tour: tour._id,
+            rating: req.body.rating,
+            review: req.body.review
+        })
         res.status(200).json({
-          status: 'success',
-          newReview
+            status: 'success',
+            newReview
         })
     }
 })
