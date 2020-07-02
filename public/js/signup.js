@@ -23,7 +23,6 @@ if (submitBtn) {
             body: JSON.stringify(body)
         })
         const res = await data.json()
-        console.log(res)
         if (res.status === 'success') {
             alertSignup.style.display = 'block'
             alertSignup.innerHTML = `

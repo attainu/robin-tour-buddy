@@ -16,7 +16,6 @@ const updateData = async(data, type) => {
         body: data
     })
     const final = await updatedData.json()
-    console.log(final)
     if (final.status === 'success') {
         window.setTimeout(() => {
             location.reload(true)
@@ -55,7 +54,6 @@ const updateDetails = async(data, type) => {
         body: JSON.stringify(data)
     })
     const finalRes = await updatedDetail.json()
-    console.log(finalRes)
     if (finalRes.status === 'success') {
         window.setTimeout(() => {
             location.reload(true)
@@ -83,7 +81,6 @@ if (updateSavePass) {
             password: pass.value,
             confirmPassword: confirmPass.value
         }
-        console.log(JSON.stringify(bodyPass))
         updateDetails(bodyPass, 'password')
     })
 }

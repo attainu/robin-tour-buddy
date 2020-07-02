@@ -4,7 +4,6 @@ const alertLogout = document.querySelector('.row_alertlogout');
 const logout = async () => {
     const data = await fetch('/api/user/logout')
     const res = await data.json()
-    console.log(res)
     if(res.status === 'success') {
         alertLogout.style.display = 'block'
         alertLogout.innerHTML = `

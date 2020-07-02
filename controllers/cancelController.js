@@ -5,7 +5,7 @@ const Tour = require('../models/tourModel');
 
 exports.cancelTour = catchAsync(async (req, res, next) => {
     const tour = await Tour.findOne({ name: req.body.tour })
-    console.log(tour)
+
     const cancelRequest = await Cancel.create({
         user: req.user,
         tour: tour.id

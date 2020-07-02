@@ -10,7 +10,6 @@ exports.overview = async (req, res) => {
     const url = req.url
     const filter = new ApiFeatures(Tour.find(), req.query).filter()
     const tours = await filter.query
-    console.log(tours)
     res.render('overview', {
         tours,
         title: 'All Tours',
@@ -27,9 +26,7 @@ exports.details = async (req, res) => {
         var user = await User.findOne({ _id: req.user._id })
         var bookings = await Booking.findOne({ user: user._id, tour: tour._id })
         var reviews = await Review.findOne({ user: user._id, tour: tour._id })
-        console.log(reviews)
     }
-    if (!tour) console.log('no')
     res.render('detail', {
         tour,
         title: tour.name,

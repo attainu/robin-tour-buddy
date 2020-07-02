@@ -22,7 +22,6 @@ if (submitLink) {
                 body: JSON.stringify(body)
             })
             const finalData = await passwordResetEmail.json()
-            console.log(finalData)
             if(finalData.status === 'success') {
                 col.innerHTML = `
                 <h5>Check Your Email! Password Token is sent valid for only 10 mins</h5>
@@ -59,7 +58,6 @@ if (passwordSet) {
             body: JSON.stringify(bodyReset)
         })
         const finalReset = await resetPass.json()
-        console.log(finalReset)
         if (finalReset.status === 'success') {
             rowAlertPass.style.display = 'block'
             rowAlertPass.innerHTML = `

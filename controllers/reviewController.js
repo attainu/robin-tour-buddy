@@ -25,9 +25,7 @@ exports.postReview = catchAsync(async(req, res, next) => {
         path: 'reviews',
         fields: 'review rating user'
     });
-    console.log(user.bookedTours.tour._id, tour._id)
     if (String(user.bookedTours.tour._id) === String(tour._id)) {
-        console.log(user.bookedTours.tour._id, tour._id)
         const newReview = await Review.create({
             user: req.user._id,
             tour: tour._id,

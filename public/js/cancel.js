@@ -9,7 +9,6 @@ cancelTour.forEach((el, index) => {
             const body = {
                 tour: bookedTourDiv[index].textContent
             }
-            console.log(JSON.stringify(body))
             const cancelTourData = await fetch(`/api/cancel`, {
                 method: 'POST',
                 headers: {
@@ -18,7 +17,6 @@ cancelTour.forEach((el, index) => {
                 body: JSON.stringify(body)
             })
             const finalCancel = await cancelTourData.json()
-            console.log(finalCancel)
             if (finalCancel.status === 'success') {
                 row_alert.style.display = 'block'
                 row_alert.innerHTML = `

@@ -40,7 +40,6 @@ exports.signup = catchAsync(async (req, res, next) => {
         confirmPassword: req.body.confirmPassword
     })
     const url = `${req.protocol}://${req.get('host')}/me`;
-    console.log(url);
     await new Email(user, url).sendWelcome();
     createSendToken(user, 200, res)
 })
@@ -56,7 +55,6 @@ exports.login = catchAsync(async(req, res, next) => {
         return next(new AppError('Incorrect Credentials'))
     }
     const url = `${req.protocol}://${req.get('host')}/me`;
-    console.log(url);
     createSendToken(user, 200, res)
 })
 

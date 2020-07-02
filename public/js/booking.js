@@ -7,7 +7,6 @@ if (bookBtn) {
             const { tourId } = e.target.dataset;
             const session = await fetch(`/api/booking/checkout-session/${tourId}`)
             const finalSession = await session.json()
-            console.log(finalSession)
             await stripe.redirectToCheckout({
                 sessionId: finalSession.session.id
             });

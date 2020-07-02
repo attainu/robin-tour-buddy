@@ -31,7 +31,6 @@ const upload = multer({
 exports.uploadUserPhoto = upload.single('photo');
 
 exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
-    console.log('trying')
     if (req.files === undefined) {
         return next();
     } else if (req.files.length === 0) {
@@ -63,8 +62,6 @@ exports.getMe = (req, res, next) => {
 }
 
 exports.updateMe = catchAsync(async(req, res, next) => {
-    console.log(req.files, 'file')
-    console.log(req.body)
     if(req.body.password || req.body.confirmPassword) {
         return next(new AppError('This fields are not allowed, please use /updateMyPassword to update the password!'))
     }
@@ -75,7 +72,6 @@ exports.updateMe = catchAsync(async(req, res, next) => {
         new: true,
         runValidators: true
     })
-    console.log(user)
     if(!user) {
         return next(new AppError('Something went wrong!', 500))
     }

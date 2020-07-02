@@ -7,7 +7,6 @@ const ratingDiv = document.querySelector('.ratingDiv')
 
 if (postReviewBtn) {
     postReviewBtn.addEventListener('click', async e => {
-        console.log(rating.value, review.value)
         try{
             e.preventDefault()
             const body = {
