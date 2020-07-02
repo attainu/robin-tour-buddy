@@ -22,6 +22,10 @@ const bookingSchema = new mongoose.Schema({
     paid: {
         type: Boolean,
         default: true
+    },
+    active: {
+        type: Boolean,
+        default: true
     }
 });
 
@@ -32,6 +36,11 @@ bookingSchema.pre(/^find/, function(next) {
     });
     next();
 });
+
+bookingSchema.pre(/^find/, function(next) {
+    this.find({ active: { $ne: false } })
+    next()
+})
 
 const Booking = mongoose.model('Booking', bookingSchema);
 

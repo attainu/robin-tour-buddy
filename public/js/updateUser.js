@@ -45,7 +45,7 @@ if (updateSavePhoto) {
 const updateDetails = async(data, type) => {
     const url =
       type === 'password'
-        ? '/api/user/updateMyPassword'
+        ? '/api/user/update-my-password'
         : '/api/user/update-me';
     const updatedDetail = await fetch(`${url}`, {
         method: 'PATCH',

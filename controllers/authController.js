@@ -179,10 +179,14 @@ exports.forgotPassword = catchAsync(async(req, res, next) => {
 exports.resetPassword = catchAsync(async(req, res, next) => {
     // get user based on the token
     const hashedToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
-    const user = await User.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } })
+    const user = await User.findOne({ passwordResetToken: hashedToken, passwordResetExpires: { $gt: Date.now() } }).select('+password')
     // check if token is not expired and user exsists, set new password
     if(!user) {
         return next(new AppError('invalid or expired token!', 400))
+    }
+    const check = await user.correctPassword(req.body.password, user.password)
+    if (check) {
+        return next(new AppError('Please use a password not used before!'))
     }
     user.password = req.body.password
     user.confirmPassword = req.body.confirmPassword

@@ -5,7 +5,8 @@ const newsLetterSchema = new mongoose.Schema({
     email: {
         type: String,
         validate: [validator.isEmail, 'please enter a valid email!'],
-        required: [true, 'please enter an email']
+        required: [true, 'please enter an email'],
+        unique: [true, 'already signed up']
     }
 })
 

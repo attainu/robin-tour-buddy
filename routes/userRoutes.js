@@ -13,7 +13,7 @@ router.patch('/reset-password/:token', authController.resetPassword);
 
 router.use(authController.protect);
 
-router.patch('/updateMyPassword', authController.updatePassword);
+router.patch('/update-my-password', authController.updatePassword);
 router.get('/me', userController.getMe, userController.getUser);
 router.patch(
     '/update-me',
@@ -21,9 +21,9 @@ router.patch(
     userController.resizeUserPhoto,
     userController.updateMe
 );
-router.delete('/deleteMe', userController.deleteMe);
+router.delete('/delete-me', userController.deleteMe);
 
-router.use(authController.restrict('admin'));
+router.use(authController.restrict('admin'), authController.protect);
 
 router
     .route('/')

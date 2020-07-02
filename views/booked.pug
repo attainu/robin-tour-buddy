@@ -10,7 +10,7 @@ block content
                     .container-fluid
                         .row
                             .col-md-2.bookedTourDiv
-                                h4= tour.name
+                                h4.bookHead= tour.name
                             div.bookedTourDiv(class='col-md-3')
                                 h4= `Starts: ${tour.startDates[0].toLocaleString('en-us', {day: 'numeric', month: 'long', year: 'numeric'})}`
                             div.bookedTourDiv(class='col-md-3')
@@ -19,6 +19,7 @@ block content
                                 h4= `Start Time: ${tour.startDates[0].toLocaleString('en-us', {time: 'numeric'}).split(',')[1]}`
                             .col-md-2.bookedTourDiv
                                 button.btn-danger.cancelTour Cancel
+                                
     - else
         .container
             .row.NoBook

@@ -58,22 +58,6 @@ const userSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 })
 
-// userSchema.virtual('newName').get(function() {
-//     return this.firstName + 'S' 
-// })
-
-// userSchema.virtual('bookedTours', {
-//     ref: 'Booking',
-//     foreignField: 'user',
-//     localField: '_id'
-// });
-
-// userSchema.pre(/^find/, async function(next) {
-//     let n = await Booking.find()
-//     console.log(n)
-//     next()
-// })
-
 userSchema.pre('save', async function (next) {
     if(!this.isModified('password')) {
         return next();

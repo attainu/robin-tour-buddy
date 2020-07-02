@@ -8,7 +8,8 @@ nav.navbar.navbar-expand-lg.navcustom.fixed-top
         ul.navbar-nav.customNav   
             if user
                 li.nav-item
-                    img.userImg(src=`/img/users/${user.photo}`, alt="")
+                    a(href="/me")
+                        img.userImg(src=`/img/users/${user.photo}`, alt="")
                 li.nav-item.actionBtn
                     a.nav-link.actionText(href="/me")= user.firstName.toUpperCase()
                 li.nav-item.actionBtn

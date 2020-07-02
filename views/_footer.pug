@@ -1,29 +1,22 @@
 .container-fluid
     .row.footer_container
-        .col-md-2
-            h6.footer_links Quick Links
-            a(href="#").footer_link career
-            br
-            a(href="#").footer_link Become a guide
-            br
-            a(href="#").footer_link Blog
-            br
-            a(href="#").footer_link API Documentation
-        .col-md-3
-            h6.footer_links2 Our Address
-            p.footerText 6/605 VBHC Vaibhava, Anekal Main Road, 
-            p.footerText Byagaddenahalli, Bangalore - 562106
-        .col-md-2
+        .col-md-4.newsLetter
             h6.footer_links2.optional Subscribe to our newsletter
             input(type="text", id="emailNews", placeholder="Email", style="width: 100%;")
-            input(type="checkbox" aria-label="Checkbox for following text input" id="checkBox" style="margin-top:10px")
+            input.offers(type="checkbox" style="margin-top:10px")
             label.footerText(for="checkBox") &nbsp;&nbsp;Get Updates & Offers
-            button.btn-block.btn-danger(id="newsSubmit" style="margin-top:15px;") Subscribe
-        .col-md-3
-            h6.footer_links2 Send Your Query
-            input(type="text", id="query", placeholder="Your Message", style="width: 100%;")
-            input(type="email", id="Email", placeholder="Your Email", style="width: 100%; margin-top:10px")
-            button.btn-block.btn-danger(id="sendQuery" style="margin-top:10px;") Send
+            button.btn-block.btn-danger(id="newsSubmit") Subscribe
+        .col-md-4
+            h6.footer_links Quick Links
+            a(href="#").footer_link career
+            a(href="#").footer_link Become a guide
+            a(href="#").footer_link Blog
+            a(href="#").footer_link API Documentation
+        .col-md-4
+            h6.footer_links Our Address
+            br
+            p.footer_link 6/605 VBHC Vaibhava, Anekal Main Road, Byagaddenahalli,
+            p.footer_link Bangalore - 562106
     .row(style="background-color:black")
         .col
             p.footerText2  &copy; By Akash Singh 2020 

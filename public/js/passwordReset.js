@@ -51,7 +51,7 @@ if (passwordSet) {
             password: newPass.value,
             confirmPassword: newPassConfirm.value
         }
-        const resetPass = await fetch(`/api/user/reset-password/${linkToken.textContent}`, {
+        const resetPass = await fetch(`/api/user/reset-password/${linkToken.dataset.resetToken}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ if (passwordSet) {
             window.setTimeout(() => {
                 location.assign('/login')
             }, 1500)
-        } else if (finalReset.status === 'error') {
+        } else if (finalReset.status === 'error' || finalReset.status === 'fail') {
             rowAlertPass.style.display = 'block'
             rowAlertPass.innerHTML = `
             <div class="col" style="color:red">

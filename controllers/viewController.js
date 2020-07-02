@@ -7,12 +7,14 @@ const AppError = require('../utils/appError');
 const ApiFeatures = require('../utils/apiFunction');
 
 exports.overview = async (req, res) => {
+    const url = req.url
     const filter = new ApiFeatures(Tour.find(), req.query).filter()
     const tours = await filter.query
     console.log(tours)
     res.render('overview', {
         tours,
-        title: 'All Tours'
+        title: 'All Tours',
+        url
     })
 }
 
@@ -68,7 +70,7 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
     const tourIDs = bookings.map(el => el.tour);
     const tours = await Tour.find({ _id: { $in: tourIDs } });
     res.status(200).render('booked', {
-        title: 'My Tours',
+        title: `${req.user.firstName}'s Tours`,
         tours
     });
 });
@@ -76,37 +78,35 @@ exports.getMyTours = catchAsync(async (req, res, next) => {
 exports.getMyReviews = catchAsync(async (req, res, next) => {
     const reviews = await Review.find({ user: req.user.id })
     res.status(200).render('reviews', {
-        reviews
+        reviews,
+        title: `${req.user.firstName}'s Reviews`
     })
 })
   
 
 exports.updateUserData = catchAsync(async (req, res, next) => {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.user.id,
-      {
-            name: req.body.name,
-            email: req.body.email
-      },
-      {
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, { name: req.body.name, email: req.body.email }, {
             new: true,
             runValidators: true
-      }
+        }
     );
   
     res.status(200).render('account', {
-        title: 'Your account',
+        title: `${req.user.firstName}'s account`,
         user: updatedUser
     });
 });
 
 exports.forgotPasswordPage = catchAsync(async(req, res, next) => {
-    res.render('forgotPass')
+    res.render('forgotPass', {
+        title: 'forgot password'
+    })
 })
 
 exports.resetPassword = catchAsync(async(req, res, next) => {
 
     res.render('resetPassword', {
-        link: req.params.token
+        link: req.params.token,
+        title: 'reset password'
     })
 })
